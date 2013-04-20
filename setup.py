@@ -29,9 +29,9 @@ setup(name='plomino.recaptcha',
         "Topic :: Software Development :: Libraries :: Python Modules",
         ],
       keywords='',
-      author='',
-      author_email='',
-      url='http://svn.plone.org/svn/collective/',
+      author='Jean Jordaan',
+      author_email='jean.jordaan@gmail.com',
+      url='http://github.com/plomino/plomino.tablib',
       license='gpl',
       packages=find_packages('src'),
       package_dir={'': 'src'},
@@ -41,6 +41,8 @@ setup(name='plomino.recaptcha',
       install_requires=[
           'setuptools',
           # -*- Extra requirements: -*-
+          'Products.CMFPlomino',
+          'collective.recaptcha'
       ],
       extras_require={'test': ['plone.app.testing[robot]>=4.2.2']},
       entry_points="""

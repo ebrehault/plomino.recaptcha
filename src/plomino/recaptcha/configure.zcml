@@ -8,6 +8,16 @@
 
   <includeDependencies package="." />
 
-  <!-- -*- extra stuff goes here -*- -->
+   <adapter
+        for="Products.CMFPlomino.interfaces.IPlominoField"
+        provides=".recaptcha.IRecaptchaField"
+        factory=".recaptcha.RecaptchaField"
+        />
+   <browser:page
+        name="recaptchasettings"
+        for="Products.CMFPlomino.interfaces.IPlominoField"
+        class=".recaptcha.SettingForm"
+        permission="plomino.DESIGN_PERMISSION"
+        />
 
 </configure>
