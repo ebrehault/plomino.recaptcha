@@ -56,7 +56,6 @@ class RecaptchaField(BaseField):
     def validate(self, submittedValue):
         """
         """
-        import pdb; pdb.set_trace()
         errors = self.restrictedTraverse('@@captcha').verify()
         return errors
 
