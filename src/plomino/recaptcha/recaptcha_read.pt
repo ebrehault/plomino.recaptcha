@@ -1,2 +1,6 @@
 <!-- TODO: Render conditionally based on settings -->
-<tal:recaptcha replace="structure context/@@captcha/image_tag"/>
+<tal:recaptcha
+	tal:define="field python:options['field'];
+				captcha python:field.getSettings('captcha');
+	"
+	replace="structure captcha"/>

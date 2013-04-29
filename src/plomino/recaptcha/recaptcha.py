@@ -26,7 +26,7 @@ except:
 
 from Products.CMFPlomino.interfaces import IPlominoField
 from Products.CMFPlomino.fields.dictionaryproperty import DictionaryProperty 
-from Products.CMFPlomino.fields.base import IBaseField, BaseField
+from Products.CMFPlomino.fields.base import IBaseField, BaseField, BaseForm
 
 class IRecaptchaField(IBaseField):
     """
@@ -48,7 +48,7 @@ class RecaptchaField(BaseField):
     plomino_field_parameters = {
             'interface': IRecaptchaField,
             'label': "Recaptcha",
-            }
+            'index_type': "FieldIndex"}
 
     read_template = PageTemplateFile('recaptcha_read.pt')
     edit_template = PageTemplateFile('recaptcha_edit.pt')
@@ -56,8 +56,21 @@ class RecaptchaField(BaseField):
     def validate(self, submittedValue):
         """
         """
-        errors = self.restrictedTraverse('@@captcha').verify()
-        return errors
+        if not self.context.getParentDatabase().restrictedTraverse('@@captcha/verify')():
+            return ["The captcha is incorrect."]
+        return []
+
+    def processInput(self, submittedValue):
+        """
+        """
+        # the fake input is just here to trigger the validation
+        # we do not actually want to store its value
+        return None
+
+    def captcha(self):
+        """
+        """
+        return self.context.getParentDatabase().restrictedTraverse("@@captcha/image_tag")()
 
 component.provideUtility(RecaptchaField, IPlominoField, 'RECAPTCHA')
 
